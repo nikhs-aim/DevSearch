@@ -1,25 +1,27 @@
 {% extends 'main.html' %}
 {% block content %}
-<p>Hello you are on {{page}} page</p>
-
-{% if number > 10 %}
-<p>The number is greater than 10</p>
-
-{% elif number == 10 %}
-<p>The number is equal to 10</p>
-
-{% else %}
-<p>The number is less than 10</p>
-
-{% endif %}
-
-<hr>
 
 <h1>Projects</h1>
 
-<ul>
-    {% for project in projects %}
-    <li>Title:<a href="{% url 'projects' project.id %}">{{project.title}}</a> ---- {{project.description}}</li>
-    {% endfor %}
-</ul>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Projects</th>
+        <th>Ratio</th>
+        <th>Votes</th>
+        <th>Date</th>
+        <th>View</th>
+        {% for project in projects %}
+        <tr>
+            <td>{{project.id}}</td>
+            <td>{{project.title}}</td>
+            <td>{{project.vote_ratio}}%</td>
+            <td>{{project.vote_total}}</td>
+            <td>{{project.created_at}}</td>
+            <td><a href="{% url 'projects' project.id %}">View</a> </td>
+        </tr>
+        {% endfor %}
+    </tr>
+</table>
+
 {% endblock content %}
