@@ -1,0 +1,4 @@
+/* if you change anything here run 'python manage.py collectstatic' */
+h1{
+    color: purple;
+}

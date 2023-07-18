@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_j=^if@hc5i1s9dz*64d=6#7sfe(!kb_@pwd0hqqp5)i3)bngl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # add this ater installing whitenoise (whitenoise will not serve user uploaded content)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,6 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL=''
+
+STATICFILES_DIRS=[
+    BASE_DIR/'static'
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images') # Tell the user where to direct images in project model
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles') # for production purpose - run python manage.py collectstatic, it gonna bundle up the static files
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
