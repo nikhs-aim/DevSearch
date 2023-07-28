@@ -31,7 +31,7 @@
 }
 
 .alert > .alert__close {
-  background: transparent;
+  background: red;
   cursor: pointer;
   border: none;
   outline: transparent;
