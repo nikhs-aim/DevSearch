@@ -1,19 +1,20 @@
-{% extends 'main.html' %}
 
+{% extends 'main.html' %}
 {% block content %}
 
-<main class="profile my-md">
+  <!-- Main Section -->
+  <main class="settingsPage profile my-md">
     <div class="container">
       <div class="layout">
         <div class="column column--1of3">
           <div class="card text-center">
             <div class="card__body dev">
-              <img class="avatar avatar--xl" src="{{profile.profile_image.url}}" />
+              <a class="tag tag--pill tag--main settings__btn" href="#">Edit<svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#3498DB"><path d="m11.25 6c.398 0 .75.352.75.75 0 .414-.336.75-.75.75-1.505 0-7.75 0-7.75 0v12h17v-8.75c0-.414.336-.75.75-.75s.75.336.75.75v9.25c0 .621-.522 1-1 1h-18c-.48 0-1-.379-1-1v-13c0-.481.38-1 1-1zm-2.011 6.526c-1.045 3.003-1.238 3.45-1.238 3.84 0 .441.385.626.627.626.272 0 1.108-.301 3.829-1.249zm.888-.889 3.22 3.22 8.408-8.4c.163-.163.245-.377.245-.592 0-.213-.082-.427-.245-.591-.58-.578-1.458-1.457-2.039-2.036-.163-.163-.377-.245-.591-.245-.213 0-.428.082-.592.245z" fill-rule="nonzero"/></svg></a>
+              <img class="avatar avatar--xl dev__avatar" src="{{profile.profile_image.url}}" />
               <h2 class="dev__name">{{profile.name}}</h2>
               <p class="dev__title">{{profile.short_intro}}</p>
               <p class="dev__location">Based in {{profile.location}}</p>
               <ul class="dev__social">
-
                 {% if profile.social_github %}
                 <li>
                   <a title="Github" href="{{profile.social_github}}" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#3498DB"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
@@ -45,7 +46,7 @@
                 {% endif %}
 
               </ul>
-              <a href="#" class="btn btn--sub btn--lg">Send Message </a>
+
             </div>
           </div>
         </div>
@@ -54,69 +55,59 @@
             <h3 class="devInfo__title">About Me</h3>
             <p class="devInfo__about">{{profile.bio}}</p>
           </div>
-          <div class="devInfo">
-            <h3 class="devInfo__title">Skills</h3>
-            <div class="devInfo__skills">
-
-                {% for skill in topSkills %}
-              <div class="devSkill">
-                <h4 class="devSkill__title">{{skill.name}}</h4>
-                <p class="devSkill__info">{{skill.description}}</p>
-                </div>
-                {% endfor %}
 
 
-              <h3 class="devInfo__subtitle">Other Skills</h3>
-              <div class="devInfo__otherSkills">
-
-                {% for skill in otherSkills %}
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>{{skill}}</small>
-                </span>
-                {% endfor %}
-
-              </div>
-            </div>
+          <div class="settings">
+            <h3 class="settings__title">Skills</h3>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><i class="im im-plus"></i> Add Skill</a>
           </div>
 
-          <div class="devInfo">
-            <h3 class="devInfo__title">Projects</h3>
-            <div class="grid grid--two">
+          <table class="settings__table">
 
-            
-            {% for project in profile.project_set.all %}
-              <div class="column">
-                <div class="card project">
-                  <a href="{% url 'projects' project.id %}" class="project">
-                    <img class="project__thumbnail" src="{{project.featured_image.url}}" alt="project thumbnail" />
-                    <div class="card__body">
-                      <h3 class="project__title">{{project.title}}</h3>
-                      <p><a class="project__author" href="{% url 'user-profile' project.owner.id %}">By {{project.owner.name}}</a></p>
-                      <p class="project--rating">
-                        <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Positive
-                        Feedback ({{project.vote_total}} vote{{project.vote_total|pluralize:"s"}})
-                      </p>
-
-
-                      <div class="project__tags">
-                        {% for tag in project.tags.all %}
-                        <span class="tag tag--pill tag--main">
-                          <small>{{tag}}</small>
-                        </span>
-                        {% endfor %}
-                      </div>
-                      
-                    </div>
-                  </a>
-                </div>
-              </div>
+            {% for skill in skills %}
+            <tr>
+              <td class="settings__tableInfo">
+                <h4>{{skill.name}}</h4>
+                <p>{{skill.description}}</p>
+              </td>
+              <td class="settings__tableActions">
+                <a class="tag tag--pill tag--main settings__btn" href="#">Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="#">Delete</a>
+              </td>
+            </tr>
             {% endfor %}
-              
+          </table>
 
-            </div>
+
+
+          <div class="settings">
+            <h3 class="settings__title">Projects</h3>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><i class="im im-plus"></i> Add Project</a>
           </div>
+
+          <table class="settings__table">
+
+            {% for project in projects %}
+            <tr>
+              <td class="settings__thumbnail">
+                <a href="{% url 'projects' project.id %}"><img src="{{project.featured_image.url}}" alt="Project Thumbnail" /></a>
+              </td>
+              <td class="settings__tableInfo">
+                <a href="{% url 'projects' project.id %}">{{project.title}}</a>
+                <p>{{project.description|slice:"150"}}</p>
+              </td>
+              <td class="settings__tableActions">
+                <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-edit"></i> Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-x-mark-circle-o"></i>
+                  Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+            
+
+          </table>
         </div>
       </div>
     </div>
   </main>
-{% endblock content %}
+{% endblock %}
