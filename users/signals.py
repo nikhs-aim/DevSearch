@@ -39,6 +39,19 @@ def createProfile(sender,instance,created,**kwargs):
 post_save.connect(createProfile,sender=User)
 
 
+def updateUser(sender,instance,created,**kwargs):
+    profile=instance
+    user=profile.user
+    if created==False:
+        user.first_name=profile.name
+        user.username=profile.username
+        user.email=profile.email
+        user.save()
+
+        
+post_save.connect(updateUser,sender=Profile)
+
+
 # when user profile is deleted the user must also be deleted
 
 def deleteUser(sender,instance,**kwargs):
