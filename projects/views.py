@@ -33,7 +33,21 @@ def projects(request):
         projects=paginator.page(page)
 
 
-    context={'projects':projects,'search_query':search_query,'paginator':paginator}
+    leftIndex = (int(page)-4)
+
+    if leftIndex < 1:
+        leftIndex = 1
+
+    rightIndex = (int(page) + 5)
+
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages + 1
+
+
+    custom_range=range(leftIndex,rightIndex)    # how many to appear 
+
+
+    context={'projects':projects,'search_query':search_query,'paginator':paginator,'custom_range':custom_range}
     return render(request,'projects/projects.html',context)
 
 
