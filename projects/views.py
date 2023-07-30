@@ -4,50 +4,18 @@ from .models import Project,Tag
 from .forms import ProjectForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .utils import searchProjects
-from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+from .utils import searchProjects,paginateProjects
 
 
 
 
 def projects(request):
     projects, search_query = searchProjects(request)
-
-    # page=1  # give the first page of the result (if page=2, then it wil display the next three projects)
-    # results=3   # give 3 results per page
-    # paginator=Paginator(projects,results)   # create paginator which takes in the page and the result
-
-    # projects=paginator.page(page)
-
-    page=request.GET.get('page')
-    results=3  
-    paginator=Paginator(projects,results)   
-
-    try:
-        projects=paginator.page(page)
-    except PageNotAnInteger:
-        page=1
-        projects=paginator.page(page)
-    except EmptyPage:
-        page=paginator.num_pages    # if user goes out of index
-        projects=paginator.page(page)
+    custom_range,projects=paginateProjects(request,projects,6)
 
 
-    leftIndex = (int(page)-4)
 
-    if leftIndex < 1:
-        leftIndex = 1
-
-    rightIndex = (int(page) + 5)
-
-    if rightIndex > paginator.num_pages:
-        rightIndex = paginator.num_pages + 1
-
-
-    custom_range=range(leftIndex,rightIndex)    # how many to appear 
-
-
-    context={'projects':projects,'search_query':search_query,'paginator':paginator,'custom_range':custom_range}
+    context={'projects':projects,'search_query':search_query,'custom_range':custom_range}
     return render(request,'projects/projects.html',context)
 
 
