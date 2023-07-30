@@ -11,8 +11,7 @@ def paginateProjects(request,projects,results):
     # projects=paginator.page(page)
     # how many to appear 
 
-    page=request.GET.get('page')
-    results=3  
+    page=request.GET.get('page') 
     paginator=Paginator(projects,results)   
 
     try:
