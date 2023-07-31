@@ -30,6 +30,9 @@ def single_project(request,pk):
         review.project = projectObj
         review.owner=request.user.profile
         review.save()
+
+        projectObj.getVoteCount
+        
         messages.success(request,'Your review was successfully submitted !')
         url = reverse('projects', kwargs={'pk': projectObj.id})
         return redirect(url)
