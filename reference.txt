@@ -1,3 +1,6 @@
 section 12 - Sending Data from the Frontend
+section 12 - Storing JSON Web Tokens
 
-Refer Front End Folder - No changes in django
+(Refer Front End Folder - No changes in django)
+
+
