@@ -1,0 +1,3 @@
+section 12 - Sending Data from the Frontend
+
+Refer Front End Folder - No changes in django
