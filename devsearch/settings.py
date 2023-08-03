@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
 
     'rest_framework',
+    'corsheaders',
 ]
 
 
@@ -97,6 +98,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',   # add this ater installing whitenoise (whitenoise will not serve user uploaded content)
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -105,6 +107,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+
 ]
 
 ROOT_URLCONF = 'devsearch.urls'
@@ -171,6 +175,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
@@ -178,7 +183,7 @@ EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 
-# the followin email represents the websites email
+# the following email represents the websites email
 EMAIL_HOST_USER='testingwebsite764@gmail.com'
 EMAIL_HOST_PASSWORD='camgkwawfsfxzkuo'  # create an app password for the specified gmail for testing 
 
