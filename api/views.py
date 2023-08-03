@@ -30,7 +30,7 @@ def getProjects(request):
 
 
 @api_view(['GET'])
-def getProjects(request,pk):
+def getProject(request,pk):
     projects=Project.objects.get(id=pk)
     serializer=ProjectSerializer(projects,many=False)
     return Response(serializer.data)
