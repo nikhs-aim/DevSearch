@@ -67,8 +67,11 @@ post_save.connect(updateUser,sender=Profile)
 # when user profile is deleted the user must also be deleted
 
 def deleteUser(sender,instance,**kwargs):
-    user=instance.user
-    user.delete()
-    print('Deleting User!')
 
+    try:
+        user=instance.user
+        user.delete()
+        print('Deleting User!')
+    except:
+        pass
 post_delete.connect(deleteUser,sender=Profile)
