@@ -25,6 +25,17 @@ class Profile(models.Model):
         return str(self.username)
     
 
+    # if the default image gets deleted it will show an error so make sure to add this
+    @property
+    def imageURL(self):
+        try:
+            url=self.profile_image.url
+        except:
+            url=""
+            
+        return url
+    
+
 class Skill(models.Model):
     owner=models.ForeignKey(Profile,on_delete=models.CASCADE,null=True,blank=True)
     name=models.CharField(max_length=200,null=True,blank=True)
