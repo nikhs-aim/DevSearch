@@ -25,6 +25,9 @@ class Profile(models.Model):
         return str(self.username)
     
 
+    class Meta:
+        ordering=['created_at']
+        
     # if the default image gets deleted it will show an error so make sure to add this
     @property
     def imageURL(self):
