@@ -1,0 +1,1 @@
+A website built using Django framework. This website is aboout connecting with developers. It include features to create an user account and post about your projects. One can give a review on anothers projects, and message another user.A simple API can also be created - (refer Devsearch_API repository) 
